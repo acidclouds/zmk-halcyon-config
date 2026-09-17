@@ -287,7 +287,9 @@ peripheral_battery_status_get_state(const zmk_event_t *eh) {
         // Called once at init before any report arrived.
         return (struct peripheral_battery_status_state){.level = 0, .known = false};
     }
-    return (struct peripheral_battery_status_state){.level = ev->state_of_charge, .known = true};
+    // The central reports level 0 when the peripheral disconnects. Show dashes for it.
+    return (struct peripheral_battery_status_state){.level = ev->state_of_charge,
+                                                    .known = ev->state_of_charge > 0};
 }
 
 ZMK_DISPLAY_WIDGET_LISTENER(widget_peripheral_battery_status,

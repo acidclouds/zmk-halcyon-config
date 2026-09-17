@@ -205,7 +205,7 @@ The profile circles, the layer name, and the art stay as in the Halcyon widget.
 ### Data sources
 
 - Left level and charging: `zmk_battery_state_changed` and `zmk_usb_conn_state_changed`, as in the Halcyon widget.
-- Right level: `zmk_peripheral_battery_state_changed`, field `state_of_charge`. Requires the central battery fetching option above.
+- Right level: `zmk_peripheral_battery_state_changed`, field `state_of_charge`. Requires the central battery fetching option above. The central raises this event with level 0 when the peripheral disconnects, so the widget shows dashes for level 0.
 - Output, profiles, and layer: same events as the Halcyon widget.
 
 ## Build
@@ -269,3 +269,22 @@ Hardware checks after flashing both halves and pairing them:
 ## Out of scope
 
 Dongle builds, encoder modules, custom art, RGB keys beyond the toggle, Colemak and Dvorak layers, the wired board's firmware, and any behavior tuning after first flash. The user will edit the keymap by hand before the first build.
+
+## Hardware check 2026-09-17
+
+First flash failed to pair the host and to link the halves. Root cause: both halves kept bonds from the earlier dongle setup, where the left half was a peripheral of the dongle and the right half was bonded to the dongle. A UF2 flash keeps the settings partition. Fix: flash `settings_reset` to both halves, then the real firmware. The reset firmware is now a build target and the README says when to use it.
+
+A second problem followed: the bond clear key was on the right half, so it could not be used while the halves were not linked, and it was pressed by mistake instead of the Studio unlock key. The clear key moved to the Esc key of the Bluetooth layer, on the left half.
+
+Results after the fixes:
+
+| Check | Result |
+| :--- | :--- |
+| Layer names Base, Raise, StarCraft, Bluetooth on the display | Pass |
+| Left battery, bolt on USB, right percentage after link | Pass |
+| Profile select and bond clear | Pass |
+| Touchpad scrolls both axes, traditional direction | Pass |
+| No click on tap | Pass |
+| Underglow on 6 LEDs, solid blue | Pass, only with USB power because of the shield's auto off |
+| Studio over USB with the unlock key | Not yet checked |
+
