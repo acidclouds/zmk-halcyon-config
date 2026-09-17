@@ -1,0 +1,11 @@
+/*
+ * Copyright (c) 2026 Val
+ * SPDX-License-Identifier: MIT
+ *
+ * Disables tap-to-click on the Cirque Pinnacle. List this shield after
+ * mod_cirque_hw_right so the trackpad node exists when this overlay applies.
+ */
+
+&trackpad {
+    /delete-property/ primary-tap-enable;
+};
