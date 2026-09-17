@@ -4,6 +4,8 @@
 > Build locally with `scripts/build.sh`. First run creates `../zmk-halcyon-ws` and
 > downloads the toolchain. Firmware lands in `firmware/elora_left.uf2` and
 > `firmware/elora_right.uf2`. Design notes are in `docs/superpowers/`.
+> If a half was bonded under another setup, for example a dongle, flash
+> `firmware/settings_reset.uf2` to it first, then the real firmware.
 
 This is the Splitkb Halcyon ZMK config repository. It allows for an external set of ZMK keymaps with or without Halcyon modules to be defined and compiled. If you want to add support to your existing keyboard, please look at the [porting guide](PORTING.md).
 

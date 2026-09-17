@@ -10,3 +10,8 @@ include:
   - board: halcyon_wireless//zmk
     shield: halcyon_elora_right mod_battery_lipo mod_cirque_hw_right mod_cirque_no_tap
     artifact-name: elora_right
+  # ZMK settings reset: erases bonds and settings. Flash it, then flash the real
+  # firmware. Needed when a half was bonded under another setup, such as a dongle.
+  - board: halcyon_wireless//zmk
+    shield: settings_reset
+    artifact-name: settings_reset

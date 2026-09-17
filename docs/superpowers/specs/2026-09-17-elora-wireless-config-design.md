@@ -98,15 +98,15 @@ Changes from the wired layer 6: number row added, left column top four keys set 
 ### Bluetooth
 
 ```
-&studio_unlock  &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4    _  _  _  _  _  &bt BT_CLR
-_  _  _  _  _  _        _  _  _  _  _  _
+&studio_unlock  &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4    _  _  _  _  _  _
+&bt BT_CLR  _  _  _  _  _        _  _  _  _  _  _
 _  _  _  _  _  _        _  _  _  _  _  _
 _  _  _  _  _  _  _  _        _  _  _  _  _  _  _  _
    _  _  _  _  _        _  _  _  _  _
 _  _  _  _  _           _  _  _  _  _
 ```
 
-Held from Base. Number row keys 1 to 5 select Bluetooth profiles 1 to 5. The far right number row key clears the active profile's bond. The far left number row key unlocks Studio, which ZMK requires before a Studio session can edit the keymap. All other keys pass through.
+Held from Base. Number row keys 1 to 5 select Bluetooth profiles 1 to 5. The Esc key, on the left half, clears the active profile's bond. It must be on the left half so it works while the right half is not linked. The far left number row key unlocks Studio, which ZMK requires before a Studio session can edit the keymap. All other keys pass through.
 
 ### Encoders
 

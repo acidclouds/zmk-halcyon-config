@@ -37,7 +37,7 @@ def test_repo_build_yaml_has_left_and_right():
         capture_output=True, text=True, check=True,
     ).stdout
     names = [line.split("\t")[0] for line in out.splitlines()]
-    assert names == ["elora_left", "elora_right"]
+    assert names == ["elora_left", "elora_right", "settings_reset"]
 
 
 def test_target_without_shield_falls_back_to_the_board_name():
