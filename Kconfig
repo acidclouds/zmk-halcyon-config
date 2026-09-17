@@ -1,0 +1,16 @@
+# Copyright (c) 2026 Val
+# SPDX-License-Identifier: MIT
+
+config ELORA_STATUS_SCREEN
+    bool "Custom Elora epaper status screen with both battery levels"
+    depends on ZMK_DISPLAY && ZMK_DISPLAY_STATUS_SCREEN_CUSTOM
+    depends on !ZMK_SPLIT || ZMK_SPLIT_ROLE_CENTRAL
+    select LV_FONT_MONTSERRAT_16
+    select LV_FONT_MONTSERRAT_14
+    select LV_FONT_UNSCII_8
+    select LV_USE_IMAGE
+    select LV_USE_CANVAS
+    help
+      Replaces the Halcyon epaper status widget. Shows the left and right
+      battery levels with percentages, the output status, the Bluetooth
+      profiles, the active layer name, and the Mountain art.
