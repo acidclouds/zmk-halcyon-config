@@ -286,5 +286,6 @@ Results after the fixes:
 | Touchpad scrolls both axes, traditional direction | Pass |
 | No click on tap | Pass |
 | Underglow on 6 LEDs, solid blue | Pass, only with USB power because of the shield's auto off |
-| Studio over USB with the unlock key | Not yet checked |
+| Studio over USB with the unlock key | Pass, after a udev rule for the ZMK serial port |
+| Touchpad scroll speed | Pass at scaler 1 to 2 |
 
