@@ -57,6 +57,10 @@ struct peripheral_battery_status_state {
  */
 static void draw_small_battery(lv_obj_t *canvas, lv_coord_t x, lv_coord_t y, uint8_t level,
                                bool charging) {
+    if (level > 100) {
+        level = 100;
+    }
+
     lv_draw_rect_dsc_t rect_bg;
     init_rect_dsc(&rect_bg, LVGL_BACKGROUND);
     lv_draw_rect_dsc_t rect_fg;
@@ -68,15 +72,19 @@ static void draw_small_battery(lv_obj_t *canvas, lv_coord_t x, lv_coord_t y, uin
     canvas_draw_rect(canvas, x + 25, y + 3, 2, 4, &rect_fg);
 
     if (charging) {
-        // Zigzag bolt: a wide background stroke first so it reads on the filled part too,
-        // then a thin foreground stroke so it reads on the empty part.
-        const lv_point_t bolt[] = {{x + 14, y + 1}, {x + 10, y + 5}, {x + 15, y + 5}, {x + 11, y + 9}};
+        // Zigzag bolt inside the well, rows y+2 to y+8: a width 2 background stroke first
+        // so it reads on the filled part too, then a width 1 foreground stroke so it reads
+        // on the empty part. The outline's top and bottom edges are drawn again after the
+        // strokes, thus a wide stroke cannot bite into them.
+        const lv_point_t bolt[] = {{x + 14, y + 2}, {x + 10, y + 5}, {x + 15, y + 5}, {x + 11, y + 8}};
         lv_draw_line_dsc_t line_bg;
-        init_line_dsc(&line_bg, LVGL_BACKGROUND, 3);
+        init_line_dsc(&line_bg, LVGL_BACKGROUND, 2);
         canvas_draw_line(canvas, bolt, 4, &line_bg);
         lv_draw_line_dsc_t line_fg;
         init_line_dsc(&line_fg, LVGL_FOREGROUND, 1);
         canvas_draw_line(canvas, bolt, 4, &line_fg);
+        canvas_draw_rect(canvas, x, y, 25, 1, &rect_fg);
+        canvas_draw_rect(canvas, x, y + 9, 25, 1, &rect_fg);
     }
 }
 
@@ -130,7 +138,7 @@ static void draw_top(lv_obj_t *widget, const struct status_state *state) {
         break;
     }
 
-    canvas_draw_text(canvas, 0, 0, CANVAS_SIZE, &symbol_dsc, output_text);
+    canvas_draw_text(canvas, 0, 0, CANVAS_SIZE - 1, &symbol_dsc, output_text);
 
     // Rotate canvas
     rotate_canvas(canvas);
@@ -251,6 +259,9 @@ ZMK_SUBSCRIPTION(widget_battery_status, zmk_battery_state_changed);
 ZMK_SUBSCRIPTION(widget_battery_status, zmk_usb_conn_state_changed);
 #endif /* IS_ENABLED(CONFIG_USB_DEVICE_STACK) */
 
+// The right half's level stays on screen after that half disconnects. ZMK raises no
+// central-side event for a peripheral disconnect in this version, so there is no
+// staleness cue.
 #if IS_ENABLED(CONFIG_ZMK_SPLIT_BLE_CENTRAL_BATTERY_LEVEL_FETCHING)
 static void set_peripheral_battery_status(struct zmk_widget_status *widget,
                                           struct peripheral_battery_status_state state) {
