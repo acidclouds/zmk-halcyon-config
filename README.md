@@ -1,5 +1,10 @@
 # Official Splitkb.com Halcyon ZMK config
 
+> **This fork:** Halcyon Elora rev2, two wireless halves, epaper left, Cirque right.
+> Build locally with `scripts/build.sh`. First run creates `../zmk-halcyon-ws` and
+> downloads the toolchain. Firmware lands in `firmware/elora_left.uf2` and
+> `firmware/elora_right.uf2`. Design notes are in `docs/superpowers/`.
+
 This is the Splitkb Halcyon ZMK config repository. It allows for an external set of ZMK keymaps with or without Halcyon modules to be defined and compiled. If you want to add support to your existing keyboard, please look at the [porting guide](PORTING.md).
 
 ##### Table of Contents  
