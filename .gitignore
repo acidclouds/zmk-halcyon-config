@@ -1,3 +1,4 @@
 .superpowers/
 firmware/
 build/
+__pycache__/
