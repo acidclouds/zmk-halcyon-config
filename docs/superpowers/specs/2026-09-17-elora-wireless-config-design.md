@@ -135,12 +135,12 @@ ZMK then drives only the underglow LEDs. Per-key LEDs get no data and stay dark.
 The keymap includes `<input/processors.dtsi>` and `<dt-bindings/zmk/input_transform.h>` and sets on the trackpad listener:
 
 ```
-input-processors = <&zip_xy_to_scroll_mapper>, <&zip_scroll_transform INPUT_TRANSFORM_Y_INVERT>, <&zip_scroll_scaler 1 4>;
+input-processors = <&zip_xy_to_scroll_mapper>, <&zip_scroll_transform INPUT_TRANSFORM_Y_INVERT>, <&zip_scroll_scaler 1 2>;
 ```
 
 - X and Y motion maps to horizontal and vertical scroll. The pad never moves the pointer.
 - Direction is traditional: finger down scrolls down, finger right scrolls right. The right shield already inverts Y for pointer use, so a Y invert is expected for traditional scroll. If an axis comes out flipped on hardware, the fix is the transform flag: add or remove `INPUT_TRANSFORM_Y_INVERT` or `INPUT_TRANSFORM_X_INVERT`. A comment in the keymap says so.
-- Scroll speed is 1 to 4. It started at 1 to 8, which was too slow on hardware. Tune the scaler numbers in the keymap.
+- Scroll speed is 1 to 2. It started at 1 to 8, then 1 to 4, both too slow on hardware. Tune the scaler numbers in the keymap.
 
 ### Tap to click off
 
