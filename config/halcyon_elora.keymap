@@ -31,12 +31,13 @@
  *   INPUT_TRANSFORM_Y_INVERT                             vertical only (current)
  *   (INPUT_TRANSFORM_Y_INVERT | INPUT_TRANSFORM_X_INVERT) both axes
  *   remove the zip_scroll_transform entry                 no invert
- * Scroll speed: zip_scroll_scaler multiplies by 1/8. Raise the second number to slow down.
+ * Scroll speed: zip_scroll_scaler multiplies by 1/4. Raise the second number to slow down,
+ * lower it to speed up. 1/8 was too slow on hardware.
  */
 &trackpad_listener {
     input-processors = <&zip_xy_to_scroll_mapper>,
                        <&zip_scroll_transform INPUT_TRANSFORM_Y_INVERT>,
-                       <&zip_scroll_scaler 1 8>;
+                       <&zip_scroll_scaler 1 4>;
 };
 
 /* Order: left halcyon encoder, right halcyon encoder, left soldered, right soldered. */
