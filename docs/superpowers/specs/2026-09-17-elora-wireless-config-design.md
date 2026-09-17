@@ -153,7 +153,7 @@ The shield is listed after `mod_cirque_hw_right` on the right half so the trackp
 
 ## Config file
 
-File: `config/halcyon_elora.conf`, applied to both halves.
+Files: `config/halcyon_elora_left.conf` and `config/halcyon_elora_right.conf`. A shared file cannot be used: the display and peripheral battery options exist only in the left half build, and Zephyr aborts when a conf assigns a symbol that does not exist or has unmet dependencies. Both files carry the underglow settings. Only the left file carries the display and battery lines.
 
 ```
 # Underglow: solid royal blue, on at power-up
