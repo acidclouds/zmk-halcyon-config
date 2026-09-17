@@ -236,7 +236,7 @@ The left half carries `mod_cirque_central` because the touchpad is on the right 
 2. Creates `.venv` there with `uv venv --python 3.12` and installs west into it.
 3. Writes a small manifest repo `manifest/` in the workspace whose `west.yml` is this repo's `config/west.yml` with `self.path` set to `manifest`. Runs `west init -l manifest` and `west update`. This keeps the workspace's manifest clone free of this repo's module file, so the repo is discovered once, as an extra module.
 4. Installs Zephyr's Python requirements into the venv and runs `west zephyr-export`.
-5. Downloads the Zephyr SDK minimal bundle from the 0.17 series, which Zephyr 4.1 requires, plus the `arm-zephyr-eabi` toolchain, into `../zmk-halcyon-ws/sdk`, and registers it.
+5. Downloads the Zephyr SDK minimal bundle from the 0.17 series, which Zephyr 4.1 requires, plus the `arm-zephyr-eabi` toolchain, into `../zmk-halcyon-ws/zephyr-sdk-0.17.0`, and registers it.
 
 Every run:
 

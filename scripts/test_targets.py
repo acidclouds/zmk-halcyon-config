@@ -38,3 +38,21 @@ def test_repo_build_yaml_has_left_and_right():
     ).stdout
     names = [line.split("\t")[0] for line in out.splitlines()]
     assert names == ["elora_left", "elora_right"]
+
+
+def test_target_without_shield_falls_back_to_the_board_name():
+    out = run(
+        "include:\n"
+        "  - board: b//z\n"
+    )
+    assert out.splitlines() == ["b__z\tb//z\t\t\t"]
+
+
+def test_no_argument_prints_usage_and_exits_with_2():
+    p = subprocess.run(
+        [sys.executable, str(REPO / "scripts" / "targets.py")],
+        capture_output=True, text=True,
+    )
+    assert p.returncode == 2
+    assert p.stderr.strip() == "usage: targets.py build.yaml"
+    assert p.stdout == ""
